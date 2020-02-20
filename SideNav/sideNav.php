@@ -20,7 +20,7 @@
             <li><a class="sidebar-sub-toggle"><i class="ti-bar-chart-alt"></i> Company <span class="sidebar-collapse-icon ti-angle-down"></span></a>
               <ul>
                 <li><a href="<?php echo $base_path?>/Company/company.php">Add Company</a></li>
-                <li><a href="chart-morris.html">Company List</a></li>
+                <li><a href="<?php echo $base_path?>/Company/company_list.php">Company List</a></li>
                 <!-- <li><a href="chartjs.html">Chartjs</a></li>
                 <li><a href="chartist.html">Chartist</a></li>
                 <li><a href="chart-peity.html">Peity</a></li>

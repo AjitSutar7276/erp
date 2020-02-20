@@ -23,6 +23,7 @@
     <link href="../assets/css/lib/helper.css" rel="stylesheet">
     <link href="../assets/css/style.css" rel="stylesheet">
     <link href="../assets/css/lib/toastr/toastr.min.css" rel="stylesheet">
+    <link href="../assets/css/lib/data-table/buttons.bootstrap.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -250,64 +251,44 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-title">
-                                    <h4>Company Information</h4>
+                                    <h4>Company List</h4>
                                     
                                 </div>
                                 <div class="card-body">
-                                    <div class="basic-elements">
-                                        <form method="post">
-
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <div class="form-group">
-                                                        <label>Company Name</label>
-                                                        <input type="text" class="form-control" value="" placeholder="Enter Company Name" name="comapny_name">
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label>Company Email</label>
-                                                        <input id="example-email" class="form-control" type="email" placeholder="Enter Company Email..." name="email">
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label>Company PAN No</label>
-                                                        <input id="example-email" class="form-control" type="text" placeholder="Enter Company PAN No..." name="pan">
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-6">
-                                                    <div class="form-group">
-                                                        <label>Company Contact</label>
-                                                        <input type="text" class="form-control" value="" name="contact" placeholder="Enter Company Contact">
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label>Company GST No</label>
-                                                        <input type="text" class="form-control" value="" name="gst" placeholder="GST No.">
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label>Company Mobile No</label>
-                                                        <input type="text" class="form-control" value="" placeholder="Company Mobile No." name="mobile">
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="row">
-                                                <div class="col-lg-12">
-                                                    <div class="form-group">
-                                                        <label>Company Address</label>
-                                                        <textarea class="form-control"  name="address" rows="3" placeholder="Enter Company Address..."></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <center>
-                                                <button type="submit" class="btn btn-default" name="submit"id="toastr-success-bottom-right">Submit</button>
-                                            </center>
-                                        </form>
+                                <div class="bootstrap-data-table-panel shm">
+                                    <div class="table-responsive">
+                                        <table id="bootstrap-data-table-export" class="table table-striped table-bordered table_export_wrapper">
+                                            <thead>
+                                                <tr>
+                                                    <th>Customer Name</th>
+                                                    <th>Contact</th>
+                                                    <th>Mobile</th>
+                                                    <th>Email</th>
+                                                    <th>GST NO</th>
+                                                    <th>Address</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                    $getCustomerData = mysqli_query($con,"select * from customer_master");
+                                                    while($row = mysqli_fetch_assoc($getCustomerData))
+                                                    {
+                                                        ?>
+                                                        <tr>
+                                                            <td><?php echo $row['comany_name'];?></td>
+                                                            <td><?php echo $row['contact'];?></td>
+                                                            <td><?php echo $row['mobile'];?></td>
+                                                            <td><?php echo $row['email'];?></td>
+                                                            <td><?php echo $row['gst'];?></td>
+                                                            <td><?php echo $row['address'];?></td>
+                                                        </tr>
+                                                        <?php
+                                                    }
+                                                ?>
+                                            </tbody>
+                                        </table>
                                     </div>
+                                </div>
                                 </div>
                             </div>
                         </div>
@@ -347,6 +328,16 @@
     <script src="../assets/js/lib/bootstrap.min.js"></script><script src="../assets/js/scripts.js"></script>
     <script src="../assets/js/lib/js-toast-master/toast.js"></script>
     <!-- scripit init-->
+    <!-- Datatable cdn -->
+    <script src="../assets/js/lib/data-table/datatables.min.js"></script>
+    <script src="../assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script src="../assets/js/lib/data-table/buttons.flash.min.js"></script>
+    <script src="../assets/js/lib/data-table/jszip.min.js"></script>
+    <script src="../assets/js/lib/data-table/pdfmake.min.js"></script>
+    <script src="../assets/js/lib/data-table/vfs_fonts.js"></script>
+    <script src="../assets/js/lib/data-table/buttons.html5.min.js"></script>
+    <script src="../assets/js/lib/data-table/buttons.print.min.js"></script>
+    <script src="../assets/js/lib/data-table/datatables-init.js"></script>
     <script>
         $(document).ready(function(){
             $.ajax({
@@ -358,33 +349,3 @@
     })
         
     </script>
-
-
-
-
-</body>
-
-</html>
-
-<?php 
-
-        if(isset($_POST['submit']))
-        {
-            $comapny_name = $_POST['comapny_name'];
-            $email        = $_POST['email'];
-            $pan          = $_POST['pan'];
-            $contact      = $_POST['contact'];
-            $gst          = $_POST['gst'];
-            $mobile       = $_POST['mobile'];
-            $address      = $_POST['address'];
-
-            $submitquery = mysqli_query($con,"insert into customer_master(comany_name,contact,email,gst,pan,mobile,address,added_by)values('$comapny_name','$contact','$email','$gst','$pan','$mobile','$address','1')");
-
-            if($submitquery)
-            {
-                echo "<script>alert('Customer Add succesfully')</script>";
-
-            }
-            
-        }   
-?>
