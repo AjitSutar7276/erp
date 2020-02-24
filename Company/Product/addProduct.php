@@ -125,62 +125,31 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-title">
-                                    <h4>Company Information</h4>
+                                    <h4>Add Product</h4>
                                     
                                 </div>
                                 <div class="card-body">
                                     <div class="basic-elements">
-                                        <form method="post">
-
+                                        <form method="post" enctype="multipart/form-data">
                                             <div class="row">
-                                                <div class="col-lg-6">
+                                                <div class="col-sm-6">
                                                     <div class="form-group">
-                                                        <label>Company Name</label>
-                                                        <input type="text" class="form-control" placeholder="Enter Company Name" name="comapny_name">
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label>Company Email</label>
-                                                        <input id="example-email" class="form-control" type="email" placeholder="Enter Company Email..." name="email">
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label>Company PAN No</label>
-                                                        <input class="form-control" type="text" id="pan" placeholder="Enter Company PAN No..." name="pan" pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}">
+                                                        <label>Product Name</label>
+                                                        <input type="text" class="form-control" placeholder="Enter Product Name" name="product_name">
                                                     </div>
                                                 </div>
-
-                                                <div class="col-lg-6">
+                                                <div class="col-sm-6">
                                                     <div class="form-group">
-                                                        <label>Company Contact</label>
-                                                        <input type="text" class="form-control"  name="contact" placeholder="Enter Company Contact">
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label>Company GST No</label>
-                                                        <input type="text" class="form-control"  name="gst" id="gst" placeholder="GST No." onkeyup="gstPanShipping('default');this.value = this.value.toUpperCase();"  pattern="\d{2}[A-Z]{5}\d{4}[A-Z]{1}[A-Z\d]{1}[Z]{1}[A-Z\d]{1}">
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label>Company Mobile No</label>
-                                                        <input type="text" class="form-control"  placeholder="Company Mobile No." name="mobile">
+                                                        <label>File</label>
+                                                        <input type="file" class="form-control" name="file[]" multiple="multiple">
                                                     </div>
                                                 </div>
                                             </div>
-
-
                                             <div class="row">
-                                                <div class="col-lg-12">
-                                                    <div class="form-group">
-                                                        <label>Company Address</label>
-                                                        <textarea class="form-control"  name="address" rows="3" placeholder="Enter Company Address..."></textarea>
-                                                    </div>
+                                                <div class="col-sm-12">
+                                                    <center><button class="btn btn-info" name="submit">Submit</button><center>
                                                 </div>
                                             </div>
-
-                                            <center>
-                                                <button type="submit" class="btn btn-default" name="submit"id="toastr-success-bottom-right">Submit</button>
-                                            </center>
                                         </form>
                                     </div>
                                 </div>
@@ -255,39 +224,54 @@
 
         if(isset($_POST['submit']))
         {
-            $comapny_name = $_POST['comapny_name'];
-            $email        = $_POST['email'];
-            $pan          = $_POST['pan'];
-            $contact      = $_POST['contact'];
-            $gst          = $_POST['gst'];
-            $mobile       = $_POST['mobile'];
-            $address      = $_POST['address'];
+            $productName = $_POST['product_name'];
+            $total = count($_FILES['file']['name']);
 
-            $submitquery = mysqli_query($con,"insert into customer_master(comany_name,contact,email,gst,pan,mobile,address,added_by)values('$comapny_name','$contact','$email','$gst','$pan','$mobile','$address','1')");
+            // Loop through each file
+            for( $i=0 ; $i < $total ; $i++ ) {
 
-            if($submitquery)
-            {
-                echo '<script>toastr.success("Company Add Successfully","Comapny",{
-                    "positionClass": "toast-bottom-right",
-                    timeOut: 5000,
-                    "closeButton": true,
-                    "debug": false,
-                    "newestOnTop": true,
-                    "progressBar": true,
-                    "preventDuplicates": true,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut",
-                    "tapToDismiss": false
-            
-                })</script>';
+            //Get the temp file path
+            $tmpFilePath = $_FILES['file']['tmp_name'][$i];
+
+            //Make sure we have a file path
+            if ($tmpFilePath != ""){
+            //Setup our new file path
+            $newFilePath = "./uploadFiles/" . $_FILES['file']['name'][$i];
+
+            //Upload the file into the temp dir
+            if(move_uploaded_file($tmpFilePath, $newFilePath)) {
+
+            //Handle other code here
+            $insertData = mysqli_query($con,"insert into product_data_master(product_name,image_path)values('$productName','$newFilePath')");
 
             }
+
+        }
+        if($insertData)
+        {
+            echo '<script>toastr.success("Data Upload Successfully","Product",{
+                "positionClass": "toast-bottom-right",
+                timeOut: 5000,
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": true,
+                "progressBar": true,
+                "preventDuplicates": true,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut",
+                "tapToDismiss": false
+        
+            })</script>';
+            echo "<script>setTimeout(\"location.href = 'addProduct.php';\",1000);</script>";
+
+        }
+}
             
         }   
 ?>

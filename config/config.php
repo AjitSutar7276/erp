@@ -5,7 +5,7 @@
         //$base_path = "http://localhost/Surya_Equipments_AdminPanel";
         //  $con = mysqli_connect("localhost","root","surya@123#","SuryaDb");
         $con = mysqli_connect("localhost","root","","easy_system");
-         $base_path = "http://localhost/Demo";
+         $base_path = "http://localhost/erp";
     
         if(!$con)
         {
