@@ -3,7 +3,7 @@
 ?>
 <div class="nano">
         <div class="nano-content">
-          <div class="logo"><a href="<?php echo $base_path?>/Dashboard/dashboard.html"><img src="../assets/images/logo.png" alt="" /></a></div>
+          <div class="logo"><a href="<?php echo $base_path?>/Dashboard/dashboard.html"><img src="../assets/images/logo1.png" alt="" /></a></div>
           <ul>
             <!-- <li class="label">Main</li> -->
             <li><a class="sidebar-sub-toggle"><i class="ti-home"></i> Dashboard</a>
