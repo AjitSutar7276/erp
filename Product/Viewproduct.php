@@ -199,7 +199,7 @@
 
                                             <div style="text-align:center;width:100%">
                                                 <button class="btn btn-default filter-button" data-filter="pht">Photos</button>
-                                                <button class="btn btn-default filter-button" data-filter="vdo">Videos</button>
+                                                <!-- <button class="btn btn-default filter-button" data-filter="vdo">Videos</button> -->
                                             </div>
                                             <br>
                                             <br>
@@ -207,13 +207,22 @@
                                         </div>
 
                                         <div class="row">
-
-                                            <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter pht">
-                                                <a class="demo" href="../assets/images/slide1.jpg" data-lightbox="example">
-                                                    <img src="../assets/images/slide1.jpg" class="img-responsive" alt="image-1">
-                                                </a>
-                                            </div>
-
+                                            <?php 
+                                                $getProductData = mysqli_query($con,"SELECT * FROM `product_data_master`");
+                                                while($row = mysqli_fetch_assoc($getProductData))
+                                                {
+                                                    $imagePath = $row['image_path'];
+                                                    ?>
+                                                    <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter pht">
+                                                        <a class="demo" href="<?php echo $imagePath?>" data-lightbox="example">
+                                                            <img src="<?php echo $imagePath?>" class="img-responsive" alt="image-1">
+                                                        </a>
+                                                    </div>
+                                                    <?php
+                                                }
+                                            ?>
+                                            
+<!-- 
                                             <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter vdo">
                                                 <a class="demo" href="../assets/images/video1.jpg" data-lightbox="example">
                                                     <img src="../assets/images/video1.jpg" class="img-responsive" alt="image-1">
@@ -262,7 +271,7 @@
 
                                             <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter pht">
                                                 <img src="../assets/images/slide7.jpg" class="img-responsive">
-                                            </div>
+                                            </div> -->
 
                                         </div>
 
