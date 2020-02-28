@@ -23,7 +23,9 @@
     <link href="../assets/css/lib/helper.css" rel="stylesheet">
     <link href="../assets/css/style.css" rel="stylesheet">
     <link href="../assets/css/lib/toastr/toastr.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://rawgit.com/LeshikJanz/libraries/master/Bootstrap/baguetteBox.min.css">
 
     <link rel="stylesheet" href="dist/css/lightbox.min.css">
 <script src="/path/to/cdn/jquery.min.js"></script>
@@ -199,27 +201,45 @@
 
                                             <div style="text-align:center;width:100%">
                                                 <button class="btn btn-default filter-button" data-filter="pht">Photos</button>
-                                                <!-- <button class="btn btn-default filter-button" data-filter="vdo">Videos</button> -->
+                                                <button class="btn btn-default filter-button" data-filter="vdo">Videos</button>
                                             </div>
                                             <br>
                                             <br>
                                             <br>
                                         </div>
-
+                                        <div class="tz-gallery">
                                         <div class="row">
                                             <?php 
                                                 $getProductData = mysqli_query($con,"SELECT * FROM `product_data_master`");
                                                 while($row = mysqli_fetch_assoc($getProductData))
                                                 {
                                                     $imagePath = $row['image_path'];
+                                                    $extention = explode('.',$imagePath);
+                                                    // print_r($extention);
+                                                    if($extention[2] == 'mp4')
+                                                    {
+                                                        ?>
+                                                        <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter vdo">
+                                                        <!-- <a class="demo" href="<?php echo $imagePath?>" data-lightbox="example">-->
+                                                            <a class="lightbox" target="_blank" href="<?php echo $imagePath?>">
+                                                            <img src="../assets/images/video3.jpg" class="img-responsive" alt="image-1">
+                                                        </a>
+                                                        </div>
+                                                        <?php
+                                                    }
+                                                    else
+                                                    {
                                                     ?>
                                                     <div class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter pht">
-                                                        <a class="demo" href="<?php echo $imagePath?>" data-lightbox="example">
+                                                        <!-- <a class="demo" href="<?php echo $imagePath?>" data-lightbox="example">-->
+                                                            <a class="lightbox" href="<?php echo $imagePath?>">
                                                             <img src="<?php echo $imagePath?>" class="img-responsive" alt="image-1">
                                                         </a>
                                                     </div>
                                                     <?php
-                                                }
+                                                    }
+                                                } 
+
                                             ?>
                                             
 <!-- 
@@ -274,7 +294,7 @@
                                             </div> -->
 
                                         </div>
-
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -315,6 +335,10 @@
     <script src="../assets/js/lib/bootstrap.min.js"></script><script src="../assets/js/scripts.js"></script>
     <script src="../assets/js/lib/js-toast-master/toast.js"></script>
     <!-- scripit init-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
+    <script>
+        baguetteBox.run('.tz-gallery');
+    </script>
     <script>
         $(document).ready(function(){
             $.ajax({

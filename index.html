@@ -31,7 +31,7 @@
                 <div class="col-lg-6">
                     <div class="login-content">
                         <div class="login-logo">
-                            <a href="index-2.html"><span>mid</span></a>
+                            <a href="index-2.html"><span>ERP System</span></a>
                         </div>
                         <div class="login-form">
                             <h4>Administratior Login</h4>
@@ -45,17 +45,17 @@
                                     <input type="password" class="form-control" placeholder="Password">
                                 </div>
                                 <div class="checkbox">
-                                    <label>
+                                    <!-- <label>
 										<input type="checkbox"> Remember Me
 									</label>
                                     <label class="pull-right">
 										<a href="#">Forgotten Password?</a>
-									</label>
+									</label> -->
 
                                 </div>
-                                <!-- <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Sign in</button> -->
-                                <a href="./Dashboard/dashboard.html" lass="btn btn-primary btn-flat m-b-30 m-t-30">Sign In</a>
-                                <div class="social-login-content">
+                                <button type="button" id="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Sign in</button>
+                                <!-- <a href="./Dashboard/dashboard.html" lass="btn btn-primary btn-flat m-b-30 m-t-30">Sign In</a> -->
+                                <!-- <div class="social-login-content">
                                     <div class="social-button">
                                         <button type="button" class="btn btn-primary bg-facebook btn-flat btn-addon m-b-10"><i class="ti-facebook"></i>Sign in with facebook</button>
                                         <button type="button" class="btn btn-primary bg-twitter btn-flat btn-addon m-t-10"><i class="ti-twitter"></i>Sign in with twitter</button>
@@ -63,7 +63,7 @@
                                 </div>
                                 <div class="register-link m-t-15 text-center">
                                     <p>Don't have account ? <a href="#"> Sign Up Here</a></p>
-                                </div>
+                                </div> -->
                             </form>
                         </div>
                     </div>
@@ -73,7 +73,14 @@
     </div>
 
 </body>
-
+    <!-- jquery vendor -->
+    <script src="./assets/js/lib/jquery.min.js"></script>
+    <script src="./assets/js/lib/jquery.nanoscroller.min.js"></script>
+    <script>
+            $('#submit').click(function(){
+                window.location.href = "./Dashboard/dashboard.html";
+            })
+    </script>
 
 <!-- Mirrored from webstrot.com/html/midadmin/page-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 16 Feb 2020 09:40:39 GMT -->
 </html>
